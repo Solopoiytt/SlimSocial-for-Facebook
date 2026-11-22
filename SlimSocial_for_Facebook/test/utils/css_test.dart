@@ -467,7 +467,7 @@ article {
       // The derived sheet covers Facebook's surfaces; the document underneath
       // them is ours to set, and a white one shows through every gap.
       expect(CustomCss.darkThemeCss.code, contains('html, body'));
-      expect(CustomCss.darkThemeCss.code, contains('#18191a'));
+      expect(CustomCss.darkThemeCss.code, contains('#000000'));
     });
 
     test('makes every wrapped text run legible before refining any of it', () {

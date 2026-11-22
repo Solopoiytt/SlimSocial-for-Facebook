@@ -1,27 +1,31 @@
-ws:
+workflows:
   facebook-mini-android:
     name: Facebook Mini Android APK
     max_build_duration: 60
-    instance_type: mac_mini_m2
-
-    working_directory: SlimSocial_for_Facebook
+    instance_type: linux_x2
 
     environment:
-      flutter: stable
+      flutter: 3.44.8
 
     scripts:
-      - name: Check Flutter
+      - name: Verify Flutter and Android tools
+        working_directory: SlimSocial_for_Facebook
         script: |
           flutter --version
           dart --version
+          java -version
+          test -f pubspec.yaml
+          test -f pubspec.lock
 
       - name: Install Flutter dependencies
+        working_directory: SlimSocial_for_Facebook
         script: |
-          flutter pub get -v
+          flutter pub get --enforce-lockfile
 
-      - name: Build Android APK
+      - name: Build installable Android APK
+        working_directory: SlimSocial_for_Facebook
         script: |
-          flutter build apk --debug -v
+          flutter build apk --debug
 
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/flutter-apk/app-debug.apk

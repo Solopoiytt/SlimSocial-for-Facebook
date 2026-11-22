@@ -3,9 +3,9 @@
 /// Three tones, ordered light-to-dark the way Facebook's own light palette is
 /// ordered, so the visual hierarchy survives the swap: the page wash sits
 /// behind cards, cards sit behind raised chrome.
-const String kDarkPageColor = '#18191a';
-const String kDarkCardColor = '#242526';
-const String kDarkRaisedColor = '#3a3b3c';
+const String kDarkPageColor = '#000000';
+const String kDarkCardColor = '#101010';
+const String kDarkRaisedColor = '#1c1c1c';
 
 /// Relative luminance above which a colour counts as a light surface worth
 /// darkening. Facebook's brand blue measures 0.17 and its red 0.15, so this

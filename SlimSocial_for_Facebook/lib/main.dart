@@ -39,6 +39,10 @@ Future<void> _startApp() async {
   await EasyLocalization.ensureInitialized();
   packageInfo = await PackageInfo.fromPlatform();
   sp = await SharedPreferences.getInstance();
+  // Black AMOLED is the first-run default; retain an explicit user choice.
+  if (!sp.containsKey(CustomCss.darkThemeCss.key)) {
+    await sp.setBool(CustomCss.darkThemeCss.key, true);
+  }
   //counted here rather than in the home screen: this runs exactly once per
   //cold start, while the screen can be rebuilt without the app restarting
   await sp.setInt(SpKeys.ratingOpens, (sp.getInt(SpKeys.ratingOpens) ?? 0) + 1);
@@ -167,7 +171,7 @@ class _SlimSocialAppState extends State<SlimSocialApp> {
     //TODO change app title dynamically
 
     return MaterialApp(
-      title: 'SlimSocial for Facebook',
+      title: 'Facebook Mini',
       //no textTheme: the platform default is Roboto, which is the font this
       //used to download from fonts.gstatic.com on every cold start — a
       //request that bought nothing and, when it failed, was reported as a

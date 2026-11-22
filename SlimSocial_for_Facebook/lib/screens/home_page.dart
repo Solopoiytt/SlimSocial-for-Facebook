@@ -46,6 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   AndroidWebViewController? _androidController;
   bool isLoading = false;
   bool isScontentUrl = false;
+  int _selectedSection = 1;
 
   /// Owns everything about a failed load: how many automatic retries are
   /// left, how long to wait before each, and whether the app should be showing
@@ -723,7 +724,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
         centerTitle: true,
         title: GestureDetector(
-          child: const Text('SlimSocial'),
+          child: const Text('Facebook Mini'),
           onTap: () => _controller.scrollTo(0, 0),
         ),
         backgroundColor: CustomCss.darkThemeCss.isEnabled()
@@ -872,6 +873,57 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedSection,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.black,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
+        onTap: (index) {
+          setState(() => _selectedSection = index);
+          switch (index) {
+            case 0:
+              unawaited(_openMessenger(
+                Uri.parse(kMessengerInboxUrl),
+                source: 'bottom_navigation',
+              ));
+              break;
+            case 1:
+              ref.read(fbWebViewProvider.notifier).updateUrl(
+                    'https://www.facebook.com/friends/',
+                  );
+              break;
+            case 2:
+              ref.read(fbWebViewProvider.notifier).updateUrl(
+                    'https://www.facebook.com/friends/requests/',
+                  );
+              break;
+            case 3:
+              ref.read(fbWebViewProvider.notifier).updateUrl(
+                    'https://www.facebook.com/me/',
+                  );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people_outline),
+            label: 'Friends',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add_alt_1_outlined),
+            label: 'Friend Requests',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
           ),
         ],
       ),

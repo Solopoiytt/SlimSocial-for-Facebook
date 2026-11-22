@@ -652,7 +652,7 @@ parts whose selectors are stable.
    on the next — a hardcoded map both leaks and repaints things it should not.
    darkThemeScript() reads the real colours out of the page's own stylesheet
    instead; see lib/utils/dark_theme.dart for the measurements. */
-html, body { background-color: #18191a !important; }
+html, body { background-color: #000000 !important; }
 
 /* Text is a different problem from surfaces and needs a different key.
 
